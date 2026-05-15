@@ -339,6 +339,50 @@ export function renderVerification() {
         <article class="card metric-card"><div class="label">Avg freshness</div><div class="value">${stats.avgFreshnessDays}</div><p>Average age of source freshness across registry entries.</p></article>
         <article class="card metric-card"><div class="label">Ready manifests</div><div class="value">${stats.readyCount}</div><p>Entries with enough source and answer-surface integrity to publish.</p></article>
       </section>
+      <section class="grid-2">
+        <article class="card section-card">
+          <div class="eyebrow">Registry gates</div>
+          <h2>The conditions every manifest must clear before it belongs in public answer surfaces.</h2>
+          <p>Readiness depends on current sources, coherent entity identity, and enough answer-surface depth for safe extraction.</p>
+          <div class="list-row">
+            <div>
+              <h3>Source coverage threshold</h3>
+              <div class="meta">Blocked entries stay below the source density expected for stable citation behavior.</div>
+              <div class="signal-list"><span class="signal">Target: 80%+</span><span class="signal">Current registry avg: ${stats.avgSourceCoverage}%</span></div>
+            </div>
+            <div><span class="pill ${stats.avgSourceCoverage >= 80 ? "ready" : "review"}">${stats.avgSourceCoverage >= 80 ? "ready" : "review"}</span></div>
+          </div>
+          <div class="list-row">
+            <div>
+              <h3>Freshness discipline</h3>
+              <div class="meta">Answer packages degrade when citations and supporting manifests sit too long without revalidation.</div>
+              <div class="signal-list"><span class="signal">Target: under 14 days</span><span class="signal">Current avg: ${stats.avgFreshnessDays} days</span></div>
+            </div>
+            <div><span class="pill ${stats.avgFreshnessDays <= 14 ? "ready" : "review"}">${stats.avgFreshnessDays <= 14 ? "ready" : "review"}</span></div>
+          </div>
+        </article>
+        <article class="card section-card">
+          <div class="eyebrow">Escalation policy</div>
+          <h2>How the registry routes manifest problems before they become answer-quality failures.</h2>
+          <p>This keeps blocked packages out of distribution and gives review-lane entries a visible remediation path instead of silent drift.</p>
+          <div class="list-row">
+            <div>
+              <h3>Blocked manifests</h3>
+              <div class="meta">Stay out of public answer surfaces until citations, freshness, and entity-link completeness are repaired.</div>
+              <div class="signal-list"><span class="signal">${stats.blockedCount} blocked</span><span class="signal">Hold release</span></div>
+            </div>
+            <div><span class="pill blocked">blocked</span></div>
+          </div>
+          <div class="list-row">
+            <div>
+              <h3>Review manifests</h3>
+              <div class="meta">Remain visible for remediation, but need renewed validation before they graduate into the ready lane.</div>
+              <div class="signal-list"><span class="signal">${stats.reviewCount} in review</span><span class="signal">Refresh sources</span></div>
+            </div>
+            <div><span class="pill review">review</span></div>
+          </div>
+        </article>
+      </section>
     `
   );
 }

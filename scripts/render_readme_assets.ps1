@@ -48,10 +48,10 @@ try {
 
     $edge = Get-EdgePath
     $targets = @(
-        @{ Url = "http://127.0.0.1:$port/"; File = "01-overview-proof.png" },
-        @{ Url = "http://127.0.0.1:$port/registry"; File = "02-registry-proof.png" },
-        @{ Url = "http://127.0.0.1:$port/claims"; File = "03-claims-proof.png" },
-        @{ Url = "http://127.0.0.1:$port/verification"; File = "04-verification-proof.png" }
+        @{ Url = "http://127.0.0.1:$port/"; File = "01-overview-proof.png"; Size = "1600,1200" },
+        @{ Url = "http://127.0.0.1:$port/registry"; File = "02-registry-proof.png"; Size = "1600,1020" },
+        @{ Url = "http://127.0.0.1:$port/claims"; File = "03-claims-proof.png"; Size = "1600,1080" },
+        @{ Url = "http://127.0.0.1:$port/verification"; File = "04-verification-proof.png"; Size = "1600,1040" }
     )
 
     foreach ($target in $targets) {
@@ -59,7 +59,7 @@ try {
             --headless `
             --disable-gpu `
             --hide-scrollbars `
-            --window-size=1600,1200 `
+            "--window-size=$($target.Size)" `
             "--screenshot=$(Join-Path $screenshots $target.File)" `
             $target.Url | Out-Null
     }
