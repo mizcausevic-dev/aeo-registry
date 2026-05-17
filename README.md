@@ -32,7 +32,7 @@ Most AEO programs eventually end up with more manifests than they can reason abo
 ## Local run
 
 ```powershell
-Set-Location "C:\Users\chaus\dev\repos\aeo-registry"
+cd aeo-registry
 npm install
 npm run dev
 ```
